@@ -1,0 +1,63 @@
+SET B - COMMANDS
+Seat Number: 2329149
+
+=== GIT ===
+git init
+git branch -M main
+git add .
+git commit -m "Initial event website"
+git remote add origin <https://github.com/eimanyousuf/devops-b-2329149>
+git push -u origin main
+
+git switch -c update-content
+git add site/index.html
+git commit -m "Add fourth event activity"
+git push -u origin update-content
+
+git switch main
+git merge update-content
+git push origin main
+
+git add .github/workflows/pages.yml
+git commit -m "Add GitHub Pages workflow"
+git push origin main
+
+git add Dockerfile deployment.yaml service.yaml
+git commit -m "Complete Docker and Kubernetes deployment"
+git push origin main
+
+=== DOCKER ===
+docker --version
+docker info
+docker build -t devops-b-2329149:v1 .
+docker images
+docker run -d --name devops-b-2329149 -p 8080:80 devops-b-2329149:v1
+docker ps
+
+=== MINIKUBE / KUBERNETES ===
+minikube status
+minikube start
+minikube image load devops-b-2329149:v1
+minikube image ls
+
+kubectl apply -f deployment.yaml
+kubectl get deployment
+kubectl get pods
+
+kubectl apply -f service.yaml
+kubectl get services
+minikube service devops-b-2329149
+
+kubectl scale deployment devops-b-2329149 --replicas=2
+kubectl get pods
+kubectl get deployment devops-b-2329149
+kubectl get services
+
+=== FINAL CHECKS ===
+git status
+git log --oneline --all --graph --decorate
+docker images
+docker ps
+kubectl get pods
+kubectl get deployment devops-b-2329149
+kubectl get services
